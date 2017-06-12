@@ -1,0 +1,46 @@
+//
+/**-1-12Simple ticoin Payment Protocol messages
+//
+/**-1-12Use fields 100+ for extensions;
+/**-1-12to avoid conflicts, register extensions at:
+/**-1-12https://en.ticoin.it/wiki/Payment_Request
+//
+
+package payments;
+option java_package = "org.ticoin.protocols.payments";
+option java_outer_classname = "Protos";
+
+/**-1-12Generalized form of "send payment to this/these ticoin addresses"
+message Output {
+	optional uint64 amount = 1 [default = 0]; /**-1-12amount is integer-number-of-satoshis
+	required bytes script = 2; /**-1-12usually one of the standard Script forms
+}
+message PaymentDetails {
+        optional string network = 1 [default = "main"]; /**-1-12"main" or "test"
+        repeated Output outputs = 2;        /**-1-12Where payment should be sent
+        required uint64 time = 3;           /**-1-12Timestamp; when payment request created
+        optional uint64 expires = 4;        /**-1-12Timestamp; when this request should be considered invalid
+        optional string memo = 5;           /**-1-12Human-readable description of request for the customer
+        optional string payment_url = 6;    /**-1-12URL to send Payment and get PaymentACK
+        optional bytes merchant_data = 7;   /**-1-12Arbitrary data to include in the Payment message
+}
+message PaymentRequest {
+        optional uint32 payment_details_version = 1 [default = 1];
+        optional string pki_type = 2 [default = "none"];  /**-1-12none / x509+sha256 / x509+sha1
+        optional bytes pki_data = 3;                      /**-1-12depends on pki_type
+        required bytes serialized_payment_details = 4;    /**-1-12PaymentDetails
+        optional bytes signature = 5;                     /**-1-12pki-dependent signature
+}
+message X509Certificates {
+        repeated bytes certificate = 1;    /**-1-12DER-encoded X.509 certificate chain
+}
+message Payment {
+        optional bytes merchant_data = 1;  /**-1-12From PaymentDetails.merchant_data
+        repeated bytes transactions = 2;   /**-1-12Signed transactions that satisfy PaymentDetails.outputs
+        repeated Output refund_to = 3;     /**-1-12Where to send refunds, if a refund is necessary
+        optional string memo = 4;          /**-1-12Human-readable message for the merchant
+}
+message PaymentACK {
+        required Payment payment = 1;      /**-1-12Payment message that triggered this ACK
+        optional string memo = 2;          /**-1-12human-readable message for customer
+}

@@ -1,0 +1,5 @@
+Building ticoin
+
+See doc/build-*.md for instructions on building ticoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of ticoin.

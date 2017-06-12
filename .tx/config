@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[ticoin.tx]
+file_filter = src/qt/locale/ticoin_<lang>.ts
+source_file = src/qt/locale/ticoin_en.ts
+source_lang = en

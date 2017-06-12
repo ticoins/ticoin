@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=ticoin
+Comment=ticoin P2P Cryptocurrency
+Comment[fr]=ticoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=ticoin, eşten eşe kriptografik sanal para birimi
+Exec=ticoin-qt %u
+Terminal=false
+Type=Application
+Icon=ticoin128
+MimeType=x-scheme-handler/ticoin;
+Categories=Office;Finance;
